@@ -19,7 +19,15 @@ import org.slf4j.LoggerFactory;
 public class Validators {
 
 	private final static Logger log = LoggerFactory.getLogger(Validators.class);
-	private final static IftttApplication app = IftttApplication.getInstance();
+	private static IftttApplication app = IftttApplication.getInstance();
+
+	public static IftttApplication getApp() {
+		return app;
+	}
+	
+	public static void setApp(IftttApplication appInstance) {
+		app = appInstance;
+	}
 
 	public static final String HEADER_TEST_MODE = "IFTTT-Test-Mode"; // : 1
 	public static final String HEADER_CHANNEL_KEY = "IFTTT-Channel-Key"; // : HKhnyC_yF47nFsINyldkoGwHBipRtT1fXcya8DiFiMQkP_YCYo67c_HKLVE56cJn

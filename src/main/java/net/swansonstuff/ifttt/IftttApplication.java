@@ -15,7 +15,7 @@ import net.swansonstuff.ifttt.resource.UserResource;
 public class IftttApplication extends Application<IftttConfiguration>{
 
     public IftttConfiguration config;
-    public static IftttApplication instance;
+    public static final IftttApplication instance = new IftttApplication();
 
     
     /**
@@ -27,7 +27,6 @@ public class IftttApplication extends Application<IftttConfiguration>{
 
 
     public IftttApplication() {
-        instance = this;
     }
 
 
@@ -68,7 +67,7 @@ public class IftttApplication extends Application<IftttConfiguration>{
     }
 
     public static void main(String[] args) throws Exception {
-        new IftttApplication().run(args);
+        getInstance().run(args);
     }
 
 }
