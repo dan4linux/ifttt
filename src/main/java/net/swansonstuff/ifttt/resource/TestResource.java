@@ -29,7 +29,7 @@ public class TestResource extends IftttResource {
     @Path("/test/{func}")
     @Timed
     public IftttResponse getTestRequest(@Context HttpHeaders headers, @QueryParam("name") Optional<String> name, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, false);
         final String value = String.format(getTemplate(), name.or(getDefaultName()));
         return new IftttResponse(new Saying(getCounter().incrementAndGet(), value));
     }
@@ -38,7 +38,7 @@ public class TestResource extends IftttResource {
     @Path("/test/{func}")
     @Timed
     public IftttResponse postTestRequest(@Context HttpHeaders headers, @FormParam("name") Optional<String> name, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, false);
         final String value = String.format(getTemplate(), name.or(getDefaultName()));
         return new IftttResponse(new Saying(getCounter().incrementAndGet(), value));
     }

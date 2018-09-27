@@ -40,7 +40,7 @@ public class RootResource extends IftttResource {
     @Path("/{func}")
     @Timed
     public IftttResponse getRequest(@Context HttpHeaders headers, @QueryParam("name") Optional<String> name, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, false);
         final String value = String.format(getTemplate(), name.or(getDefaultName()));
         return new IftttResponse(new Saying(getCounter().incrementAndGet(), value));
     }
@@ -49,7 +49,7 @@ public class RootResource extends IftttResource {
     @Path("/{func}")
     @Timed
     public IftttResponse postRequest(@Context HttpHeaders headers, @FormParam("name") Optional<String> name, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, false);
         final String value = String.format(getTemplate(), name.or(getDefaultName()));
         return new IftttResponse(new Saying(getCounter().incrementAndGet(), value));
     }

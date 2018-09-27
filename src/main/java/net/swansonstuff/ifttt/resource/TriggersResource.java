@@ -31,7 +31,7 @@ public class TriggersResource extends IftttResource {
     @Path("/triggers/{triggerSlug}")
     @Timed
     public IftttResponseArray getTriggersRequest(@Context HttpHeaders headers, @QueryParam("triggerSlug") String triggerSlug, @PathParam("version") int version) {
-        validate(headers);
+        validate(headers, true);
         final String value = String.format(getTemplate(), triggerSlug);
         return new IftttResponseArray(new Saying(getCounter().incrementAndGet(), value));
     }
@@ -40,15 +40,16 @@ public class TriggersResource extends IftttResource {
     @Path("/triggers/{triggerSlug}")
     @Timed
     public IftttResponseArray postTriggersRequest(@Context HttpHeaders headers, ObjectNode data, @PathParam("version") int version, @PathParam("triggerSlug") String triggerSlug) {
-        validate(headers);
+        validate(headers, true);
         JsonNode name = data.get("name");
         final String value = String.format(getTemplate(), (name != null ? name.asText() : getDefaultName()));
         return new IftttResponseArray(new Saying(getCounter().incrementAndGet(), value));
     }
     
     @POST
-    @Path("/triggers/{{triggerSlug}}/fields/{{triggerFieldSlug}}/{action}")
-    public IftttResponseArray postTriggersFieldsRequest(@Context HttpHeaders headers, ObjectNode data, @PathParam("version") int version, @PathParam("triggerName") String triggerName, @PathParam("action") String action) {
+    @Path("/triggers/{triggerSlug}/fields/{triggerFieldSlug}/{action}")
+    public IftttResponseArray postTriggersFieldsRequest(@Context HttpHeaders headers, ObjectNode data, @PathParam("version") int version, @PathParam("triggerSlug") String triggerSlug, @PathParam("triggerFieldSlug") String triggerFieldSlug, @PathParam("action") String action) {
+        validate(headers, true);
         switch(action) {
             case ACTIONS_OPTIONS:
                 

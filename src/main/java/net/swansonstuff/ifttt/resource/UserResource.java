@@ -42,7 +42,7 @@ public class UserResource extends IftttResource {
     @Path("/user/{func}")
     @Timed
     public UserResponse getUserRequest(@Context HttpHeaders headers, @QueryParam("name") Optional<String> name, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, true);
         final String value = String.format(getTemplate(), name.or(getDefaultName()));
         return new UserResponse(value, UUID.randomUUID().toString(), "http://swansonstuff.net/"+value);
     }
@@ -51,7 +51,7 @@ public class UserResource extends IftttResource {
     @Path("/user/{func}")
     @Timed
     public UserResponse postUserRequest(@Context HttpHeaders headers, ObjectNode data, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, true);
         JsonNode name = data.get("name");
         final String value = String.format(getTemplate(), (name != null ? name.asText() : getDefaultName()));
         return new UserResponse(value, UUID.randomUUID().toString(), "http://swansonstuff.net/"+value);

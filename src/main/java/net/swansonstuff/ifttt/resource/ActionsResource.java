@@ -32,7 +32,7 @@ public class ActionsResource extends IftttResource {
     @Path("/actions/{func}")
     @Timed
     public IftttResponseArray getActionsRequest(@Context HttpHeaders headers, @QueryParam("name") Optional<String> name, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, true);
         final String value = String.format(getTemplate(), name.or(getDefaultName()));
         return new IftttResponseArray(new Saying(getCounter().incrementAndGet(), value));
     }
@@ -41,7 +41,7 @@ public class ActionsResource extends IftttResource {
     @Path("/actions/{func}")
     @Timed
     public IftttResponseArray postActionsRequest(@Context HttpHeaders headers, ObjectNode data, @PathParam("version") int version, @PathParam("func") String func) {
-        validate(headers);
+        validate(headers, true);
         JsonNode name = data.get("name");
         final String value = String.format(getTemplate(), (name != null ? name.asText() : getDefaultName()));
         return new IftttResponseArray(new Saying(getCounter().incrementAndGet(), value));

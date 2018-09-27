@@ -49,8 +49,8 @@ public class IftttResource {
         return counter;
     }
     
-    public void validate(HttpHeaders headers) {
-        Validators.validate(headers);
+    public void validate(HttpHeaders headers, boolean authRequired) {
+        Validators.validate(headers, authRequired);
     }
 
 }
